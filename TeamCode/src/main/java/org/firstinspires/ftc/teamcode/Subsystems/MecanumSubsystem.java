@@ -29,19 +29,12 @@ public class MecanumSubsystem {
         lr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        lf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        lr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lf.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rf.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        lr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
     public void TeleOperatedDrive(double forward, double strafe, double turn) {
-
-        if(lf.getMode() != DcMotor.RunMode.RUN_USING_ENCODER){
-            lf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            rf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            lr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            rr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
 
         double[] speeds = {
                 (forward + strafe + turn),
@@ -59,10 +52,10 @@ public class MecanumSubsystem {
             for (int i = 0; i < speeds.length; i++) speeds[i] /= max;
         }
 
-        lf.setPower(speeds[0]);
-        rf.setPower(-1*speeds[1]);
-        lr.setPower(speeds[2]);
-        rr.setPower(-1*speeds[3]);
+        lf.setPower(0.25*speeds[0]);
+        rf.setPower(-0.25*speeds[1]);
+        lr.setPower(0.25*speeds[2]);
+        rr.setPower(-0.25*speeds[3]);
     }
 
     public boolean areMotorsBusy(){
