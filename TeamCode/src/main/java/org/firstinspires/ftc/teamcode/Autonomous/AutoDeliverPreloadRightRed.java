@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.MecanumSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.ScissorSubsystem;
 
 @Autonomous
-public class TestRedAuton extends LinearOpMode {
+public class AutoDeliverPreloadRightRed extends LinearOpMode {
 
     MecanumSubsystem mecanumSubsystem;
     ScissorSubsystem scissorSubsystem;
@@ -25,12 +25,14 @@ public class TestRedAuton extends LinearOpMode {
 
         waitForStart();
         // sleep(); functions may be needed after non-drivetrain functions
-        encoderDriveToPosition("forward", 0.75, 1440, 2);
-        scissorSubsystem.encoderScissor(1440);
-        intakeSubsystem.encoderExtend(1440);
-
-
+        encoderDriveToPosition("forward",.5,500,1);
+        encoderDriveToPosition("slideLeft",.5,3000,1);
+        encoderDriveToPosition("rotateLeft",.5,1440,1);
+        scissorSubsystem.encoderScissor(1000);
+        intakeSubsystem.encoderExtend(1000);
+        intakeSubsystem.sampleDropper(1);
     }
+
 
     public void encoderDriveToPosition(String direction, double power, int counts, double timeout){
         mecanumSubsystem.encoderDriveAuto(direction, power, counts);
