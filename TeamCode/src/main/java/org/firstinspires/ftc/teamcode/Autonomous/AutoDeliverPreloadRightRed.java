@@ -26,12 +26,12 @@ public class AutoDeliverPreloadRightRed extends LinearOpMode {
         waitForStart();
         // sleep(); functions may be needed after non-drivetrain functions
         // add sleep(some counts); and possibly start facing bucket
-        encoderDriveToPosition("forward",.5,500,1);
-        encoderDriveToPosition("slideLeft",.5,3000,1);
-        encoderDriveToPosition("rotateLeft",.5,1440,1);
-        scissorSubsystem.encoderScissor(1000);
-        intakeSubsystem.encoderExtend(1000);
-        intakeSubsystem.sampleDropper(1);
+        mecanumSubsystem.TeleOperatedDrive(0,0,0);
+        sleep(10000);
+        encoderDriveToPosition("forward",.3,7087,1);
+        encoderDriveToPosition("slideright",.3,366,1);
+        scissorSubsystem.encoderScissor(-556);
+      //  intakeSubsystem.sampleDropper(1);
     }
 
 

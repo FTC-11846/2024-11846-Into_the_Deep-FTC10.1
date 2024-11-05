@@ -28,12 +28,10 @@ public class AutoDeliverPreloadRightBlue extends LinearOpMode {
   //go forward half a square
         //strafe left till buckets
         //rotate left 90 raise scissor and extend then drop to score
-        encoderDriveToPosition("forward",.5,500,1);
-        encoderDriveToPosition("slideLeft",.5,3000,1);
-        encoderDriveToPosition("rotateLeft",.5,1440,1);
-        scissorSubsystem.encoderScissor(1000);
-        intakeSubsystem.encoderExtend(1000);
-        intakeSubsystem.sampleDropper(1);
+        sleep(10000);
+        encoderDriveToPosition("forward",.3,1000,1);
+        scissorSubsystem.encoderScissor(-556);
+       // intakeSubsystem.sampleDropper(1);
     }
 
     public void encoderDriveToPosition(String direction, double power, int counts, double timeout){

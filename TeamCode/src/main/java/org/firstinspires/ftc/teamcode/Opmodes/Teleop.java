@@ -41,7 +41,7 @@ public class Teleop extends OpMode {
         }
 
         if(gamepad2.x){
-            intakeSubsystem.sampleDropper(0.05);
+            intakeSubsystem.sampleDropper(0.01);
         }else if(gamepad2.y){
             intakeSubsystem.sampleDropper(0.89);
         }
@@ -53,9 +53,9 @@ public class Teleop extends OpMode {
 //        }
 
         if(gamepad2.dpad_down){
-            scissorSubsystem.hang();
-        }else {
             scissorSubsystem.openHang();
+        }else {
+            scissorSubsystem.hang();
         }
 
 
@@ -65,6 +65,10 @@ public class Teleop extends OpMode {
 
         telemetry.addData("ScissorLCounts", scissorSubsystem.scissorLCounts());
         telemetry.addData("ScissorRCounts", scissorSubsystem.scissorRCounts());
+        telemetry.addData("lr",mecanumSubsystem.encoderDrivelr());
+        telemetry.addData("lf",mecanumSubsystem.encoderDrivelf());
+        telemetry.addData("rr",mecanumSubsystem.encoderDriverrr());
+        telemetry.addData("rf",mecanumSubsystem.encoderDriverrf());
         telemetry.update();
     }
 

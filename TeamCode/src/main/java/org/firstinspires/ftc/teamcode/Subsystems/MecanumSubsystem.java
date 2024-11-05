@@ -52,10 +52,10 @@ public class MecanumSubsystem {
             for (int i = 0; i < speeds.length; i++) speeds[i] /= max;
         }
 
-        lf.setPower(0.25*speeds[0]);
-        rf.setPower(-0.25*speeds[1]);
-        lr.setPower(0.25*speeds[2]);
-        rr.setPower(-0.25*speeds[3]);
+        lf.setPower(speeds[0]);
+        rf.setPower(-1*speeds[1]);
+        lr.setPower(speeds[2]);
+        rr.setPower(-1*speeds[3]);
     }
 
     public boolean areMotorsBusy(){
@@ -75,10 +75,7 @@ public class MecanumSubsystem {
      */
     public void encoderDriveAuto(String direction, double power, int counts){
 
-        lf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        lr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
         switch (direction) {
             case "forward":
@@ -144,6 +141,33 @@ public class MecanumSubsystem {
             default:
                 break;
         }
+
+        lf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        lr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
+    public int encoderDrivelr(){
+        return lr.getCurrentPosition();
+
+        }
+    public int encoderDrivelf(){
+        return lf.getCurrentPosition();
+
+    }
+    public int encoderDriverrr(){
+        return rr.getCurrentPosition();
+
+    }
+    public int encoderDriverrf(){
+        return rf.getCurrentPosition();
+
+    }
+
+
+
+
 }
+
+
 

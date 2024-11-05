@@ -59,5 +59,13 @@ public class IntakeSubsystem {
     public double sampleD2(){
         return sd2.getPosition();
     }
+    public void incrementdropper(boolean forward,double increment){
+        if (forward){
+            sd.setPosition(sd.getPosition() + increment);
 
+        }else{
+            sd.setPosition(-increment);
+        }
+
+    }
 }
