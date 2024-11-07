@@ -25,10 +25,15 @@ public class AutoDeliverPreloadRightBlue extends LinearOpMode {
 
         waitForStart();
         // sleep(); functions may be needed after non-drivetrain functions
-        //go forward till buckets 55in
-        //rotate left 45 raise scissor and extend then drop to score
-        sleep(10000);
-        encoderDriveToPosition("forward",.3,7920,1);
+        encoderDriveToPosition("forward",.3,5000,3);
+        encoderDriveToPosition("slideLeft",.3,500,3);
+        elevatorSubsystem.encoderElevator(100);
+        encoderDriveToPosition("forward",.3,200,3);
+        elevatorSubsystem.encoderElevator(-100);
+        sleep(2000);
+        elevatorSubsystem.encoderElevator(100);
+        encoderDriveToPosition("backward",.3,5000,3);
+
        // intakeSubsystem.sampleDropper(1);
     }
 

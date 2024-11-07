@@ -25,7 +25,7 @@ public class AutoDeliverPreloadLeftBlue extends LinearOpMode {
 
         waitForStart();
         // sleep(); functions may be needed after non-drivetrain functions
-        encoderDriveToPosition("forward",.3,500,1);
+        encoderDriveToPosition("forward",.3,500,3);
       //  intakeSubsystem.sampleDropper(1);
 
     }
