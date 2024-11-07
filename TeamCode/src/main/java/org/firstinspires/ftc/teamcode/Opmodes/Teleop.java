@@ -6,19 +6,19 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.MecanumSubsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.ScissorSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.ElevatorSubsystem;
 
 @TeleOp(name = "Teleop", group = "TeleOp")
 public class Teleop extends OpMode {
 
     MecanumSubsystem mecanumSubsystem;
-    ScissorSubsystem scissorSubsystem;
+    ElevatorSubsystem elevatorSubsystem;
     IntakeSubsystem intakeSubsystem;
 
     @Override
     public void init(){
         mecanumSubsystem = new MecanumSubsystem(hardwareMap);
-        scissorSubsystem = new ScissorSubsystem(hardwareMap);
+        elevatorSubsystem = new ElevatorSubsystem(hardwareMap);
         intakeSubsystem = new IntakeSubsystem(hardwareMap);
 
     }
@@ -32,9 +32,9 @@ public class Teleop extends OpMode {
         double lift = gamepad2.left_stick_y;
         double extend = -gamepad2.right_stick_y;
 
-        if(gamepad2.a){
+        if(gamepad2.left_trigger >= 0.1){
             intakeSubsystem.intake(-1);
-        } else if(gamepad2.b){
+        } else if(gamepad2.right_trigger >= 0.1){
             intakeSubsystem.intake(1);
         } else {
             intakeSubsystem.intake(0);
@@ -46,29 +46,31 @@ public class Teleop extends OpMode {
             intakeSubsystem.sampleDropper(0.89);
         }
 
-//        if(12 < scissorSubsystem.scissorLCounts()< 15){
-//            intakeSubsystem.sampleDropper(#);
-//        }else if( 15 < scissorSubsystem.scissorLCounts() < 25){
-//            intakeSubsystem.sampleDropper(#);
-//        }
 
         if(gamepad2.dpad_down){
-            scissorSubsystem.openHang();
+            elevatorSubsystem.openHang();
         }else {
-            scissorSubsystem.hang();
+            elevatorSubsystem.hang();
         }
 
+        if(gamepad2.left_bumper){
+            intakeSubsystem.specimenGrabIncrement(0.1);
+        }else if(gamepad2.right_bumper){
+            intakeSubsystem.specimenGrabIncrement(-0.1);
+        }
 
         mecanumSubsystem.TeleOperatedDrive(forward, -strafe, turn);
-        scissorSubsystem.scissorLift(lift);
+        elevatorSubsystem.elevatorLift(lift);
         intakeSubsystem.extend(extend);
 
-        telemetry.addData("ScissorLCounts", scissorSubsystem.scissorLCounts());
-        telemetry.addData("ScissorRCounts", scissorSubsystem.scissorRCounts());
+        telemetry.addData("ElevatorLCounts", elevatorSubsystem.ElevatorLCounts());
+        telemetry.addData("ElevatorRCounts", elevatorSubsystem.ElevatorRCounts());
         telemetry.addData("lr",mecanumSubsystem.encoderDrivelr());
         telemetry.addData("lf",mecanumSubsystem.encoderDrivelf());
         telemetry.addData("rr",mecanumSubsystem.encoderDriverrr());
         telemetry.addData("rf",mecanumSubsystem.encoderDriverrf());
+        telemetry.addData("specimenGrabberPosition",intakeSubsystem.specimenGrabPosition());
+        telemetry.addData("extensionEncoderPosition", intakeSubsystem.extensionEncoderCounts());
         telemetry.update();
     }
 

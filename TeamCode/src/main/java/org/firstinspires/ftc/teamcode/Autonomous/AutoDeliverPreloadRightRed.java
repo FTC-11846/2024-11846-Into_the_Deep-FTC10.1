@@ -6,13 +6,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.MecanumSubsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.ScissorSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.ElevatorSubsystem;
 
 @Autonomous
 public class AutoDeliverPreloadRightRed extends LinearOpMode {
 
     MecanumSubsystem mecanumSubsystem;
-    ScissorSubsystem scissorSubsystem;
+    ElevatorSubsystem elevatorSubsystem;
     IntakeSubsystem intakeSubsystem;
 
     ElapsedTime runtime = new ElapsedTime();
@@ -20,7 +20,7 @@ public class AutoDeliverPreloadRightRed extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         mecanumSubsystem = new MecanumSubsystem(hardwareMap);
-        scissorSubsystem = new ScissorSubsystem(hardwareMap);
+        elevatorSubsystem = new ElevatorSubsystem(hardwareMap);
         intakeSubsystem = new IntakeSubsystem(hardwareMap);
 
         waitForStart();
@@ -30,7 +30,6 @@ public class AutoDeliverPreloadRightRed extends LinearOpMode {
         sleep(10000);
         encoderDriveToPosition("forward",.3,7087,1);
         encoderDriveToPosition("slideright",.3,366,1);
-        scissorSubsystem.encoderScissor(-556);
       //  intakeSubsystem.sampleDropper(1);
     }
 
