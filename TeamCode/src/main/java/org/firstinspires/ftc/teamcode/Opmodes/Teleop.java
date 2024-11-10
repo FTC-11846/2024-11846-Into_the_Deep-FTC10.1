@@ -41,7 +41,7 @@ public class Teleop extends OpMode {
         }
 
         if(gamepad2.x){
-            intakeSubsystem.sampleDropper(0.05);
+            intakeSubsystem.sampleDropper(0.01);
         }else if(gamepad2.y){
             intakeSubsystem.sampleDropper(0.89);
         }

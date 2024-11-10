@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class MecanumSubsystem {
 
     DcMotor lf, lr, rf, rr;
+    
 
     public MecanumSubsystem(HardwareMap hardwareMap){
 
@@ -13,6 +14,7 @@ public class MecanumSubsystem {
         lr = hardwareMap.get(DcMotor.class,"lr");
         rr = hardwareMap.get(DcMotor.class,"rr");
         rf = hardwareMap.get(DcMotor.class,"rf");
+
 
         lf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -52,11 +54,12 @@ public class MecanumSubsystem {
             for (int i = 0; i < speeds.length; i++) speeds[i] /= max;
         }
 
-        lf.setPower(0.25*speeds[0]);
-        rf.setPower(-0.25*speeds[1]);
-        lr.setPower(0.25*speeds[2]);
-        rr.setPower(-0.25*speeds[3]);
+        lf.setPower(speeds[0]);
+        rf.setPower(-1*speeds[1]);
+        lr.setPower(speeds[2]);
+        rr.setPower(-1*speeds[3]);
     }
+
 
     public boolean areMotorsBusy(){
         return lf.isBusy() || rf.isBusy() || lr.isBusy() || rr.isBusy();
