@@ -6,13 +6,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.MecanumSubsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.ScissorSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.ElevatorSubsystem;
 
 @Autonomous
 public class AutoDeliverPreloadLeftBlue extends LinearOpMode {
 
     MecanumSubsystem mecanumSubsystem;
-    ScissorSubsystem scissorSubsystem;
+    ElevatorSubsystem elevatorSubsystem;
     IntakeSubsystem intakeSubsystem;
 
     ElapsedTime runtime = new ElapsedTime();
@@ -20,15 +20,13 @@ public class AutoDeliverPreloadLeftBlue extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         mecanumSubsystem = new MecanumSubsystem(hardwareMap);
-        scissorSubsystem = new ScissorSubsystem(hardwareMap);
+        elevatorSubsystem = new ElevatorSubsystem(hardwareMap);
         intakeSubsystem = new IntakeSubsystem(hardwareMap);
 
         waitForStart();
         // sleep(); functions may be needed after non-drivetrain functions
-        encoderDriveToPosition("forward",.5,1000,1);
-        scissorSubsystem.encoderScissor(1000);
-        intakeSubsystem.encoderExtend(1000);
-        intakeSubsystem.sampleDropper(1);
+        encoderDriveToPosition("forward",.3,500,3);
+      //  intakeSubsystem.sampleDropper(1);
 
     }
 

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -25,7 +24,7 @@ public class ScissorSubsystem {
         sR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         sL.setDirection(DcMotor.Direction.REVERSE);
-        sR.setDirection(DcMotor.Direction.FORWARD);
+        sR.setDirection(DcMotor.Direction.REVERSE);
 
         sL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         sR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

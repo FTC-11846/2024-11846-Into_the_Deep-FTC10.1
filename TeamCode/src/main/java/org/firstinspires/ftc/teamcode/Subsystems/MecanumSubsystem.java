@@ -78,10 +78,7 @@ public class MecanumSubsystem {
      */
     public void encoderDriveAuto(String direction, double power, int counts){
 
-        lf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        lr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
         switch (direction) {
             case "forward":
@@ -147,6 +144,33 @@ public class MecanumSubsystem {
             default:
                 break;
         }
+
+        lf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        lr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
+    public int encoderDrivelr(){
+        return lr.getCurrentPosition();
+
+        }
+    public int encoderDrivelf(){
+        return lf.getCurrentPosition();
+
+    }
+    public int encoderDriverrr(){
+        return rr.getCurrentPosition();
+
+    }
+    public int encoderDriverrf(){
+        return rf.getCurrentPosition();
+
+    }
+
+
+
+
 }
+
+
 
