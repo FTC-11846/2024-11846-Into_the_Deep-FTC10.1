@@ -46,6 +46,16 @@ public class Teleop extends OpMode {
             intakeSubsystem.sampleDropper(0.89);
         }
 
+        // on a check current position and toggle to other position
+        if(gamepad2.a){
+            intakeSubsystem.specimenGrabIncrement(1);
+            if()
+        }
+        // use function specimenGrabPosition to get current status of grabber position so we know whether
+        //to set our position to active or safe
+
+
+
 
         if(gamepad2.dpad_down){
             elevatorSubsystem.openHang();

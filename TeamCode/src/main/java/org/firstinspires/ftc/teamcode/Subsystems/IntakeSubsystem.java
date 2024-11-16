@@ -9,15 +9,22 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class IntakeSubsystem {
 
     DcMotor ex, im;
-    Servo sd,sd2, gs;
+    Servo sd,sd2, grabTop, grabBtm;
     RevColorSensorV3 cs;
+
+    //specimen grabber position constants
+    public static final double grabIntitPos = 0;
+    public static final double grabSafePos =   .25;
+    public static final double grabActivePos = .6;
+
 
     public IntakeSubsystem(HardwareMap hardwareMap){
         ex = hardwareMap.get(DcMotor.class, "ex");
         im = hardwareMap.get(DcMotor.class, "im");
         sd = hardwareMap.get(Servo.class, "sd");
         sd2 = hardwareMap.get(Servo.class, "sd2");
-        gs = hardwareMap.get(Servo.class, "gs");
+        grabTop = hardwareMap.get(Servo.class, "grabTop");
+        grabBtm = hardwareMap.get(Servo.class, "grabBtm");
    //     cs = hardwareMap.get(RevColorSensorV3.class, "cs");
 
         sd2.setDirection(Servo.Direction.REVERSE);
@@ -63,13 +70,30 @@ public class IntakeSubsystem {
         sd2.setPosition(position);
     }
 
-    public void specimenGrabIncrement(double position){
-        double newPos = specimenGrabPosition() + position;
-       gs.setPosition(newPos);
-    }
+//   public void specimenGrabIncrement(double position){
+//        double newGrabPos = specimenGrabPosition() + position;
+//       grabTop.setPosition(newGrabPos);
+//       grabBtm.setPosition(newGrabPos);
+//    }
 
-    public double specimenGrabPosition (){
-        return gs.getPosition();
+    //0 = servo position don't match
+    //4 = not working and grab servos are not in correct
+    //1 = grabber is in scoring position
+    //2 = grabber is in the safe position
+    //3 = grabber is in the init position
+    public double specimenGrabPosition (int comboPosition) {
+        double grabTopPos = grabTop.getPosition();
+        double grabBtmPos = grabBtm.getPosition();
+        if (grabTopPos != grabBtmPos) {
+            return 0;
+        } else if (grabTopPos == grabActivePos) {
+            return 1;
+        }else if(grabTopPos == grabSafePos){
+            return 2;
+        }else if(grabTopPos == grabIntitPos){
+            return 3;
+        }
+        return 4;
     }
 
     public int colorSensorBlue(){
