@@ -1,87 +1,95 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.qualcomm.hardware.rev.RevColorSensorV3;
-import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class IntakeSubsystem {
 
-    DcMotor ex, im;
-    Servo sd,sd2, grabTop, grabBtm;
+    DcMotor inExtendMotor, intakeMotor;
+    Servo dropper, grabTop, grabBtm;
     RevColorSensorV3 cs;
+    CRServo test;
 
     //specimen grabber position constants
-    public static final double grabIntitPos = 0;
-    public static final double grabSafePos =   .25;
-    public static final double grabActivePos = .6;
+    public static final double grabInitPos = 0;
+    public static final double grabSafePos =   0; //0.3
+    public static final double grabActivePos = 1; //0.6
 
 
     public IntakeSubsystem(HardwareMap hardwareMap){
-        ex = hardwareMap.get(DcMotor.class, "ex");
-        im = hardwareMap.get(DcMotor.class, "im");
-        sd = hardwareMap.get(Servo.class, "sd");
-        sd2 = hardwareMap.get(Servo.class, "sd2");
+        inExtendMotor = hardwareMap.get(DcMotor.class, "inExtendMotor");
+        intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
+        dropper = hardwareMap.get(Servo.class, "dropper");
         grabTop = hardwareMap.get(Servo.class, "grabTop");
         grabBtm = hardwareMap.get(Servo.class, "grabBtm");
    //     cs = hardwareMap.get(RevColorSensorV3.class, "cs");
+        grabTop.setDirection(Servo.Direction.REVERSE);
 
-        sd2.setDirection(Servo.Direction.REVERSE);
-        ex.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        im.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+   //  Was this just for bug testing? -->     test.getDirection();
 
-        ex.setDirection(DcMotor.Direction.FORWARD);
-        im.setDirection(DcMotor.Direction.FORWARD);
+        inExtendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        ex.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        im.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        inExtendMotor.setDirection(DcMotor.Direction.FORWARD);
+        intakeMotor.setDirection(DcMotor.Direction.FORWARD);
 
-        ex.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        im.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        inExtendMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        inExtendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void extend(double power){
-        ex.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        ex.setPower(power);
+        inExtendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        inExtendMotor.setPower(power);
     }
 
     public double extensionEncoderCounts(){
-        return  ex.getCurrentPosition();
+        return  inExtendMotor.getCurrentPosition();
     }
 
     public void encoderExtend(double counts){
-        ex.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        int xTarget = Math.toIntExact(Math.round(ex.getCurrentPosition() + counts));
-        ex.setTargetPosition(xTarget);
+        inExtendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        int xTarget = Math.toIntExact(Math.round(inExtendMotor.getCurrentPosition() + counts));
+        inExtendMotor.setTargetPosition(xTarget);
         if(counts < 0){
-            ex.setPower(-0.75);
+            inExtendMotor.setPower(-0.75);
         } else {
-            ex.setPower(0.75);
+            inExtendMotor.setPower(0.75);
         }
     }
 
     public void intake(double power) {
-        im.setPower(power);
+        intakeMotor.setPower(power);
     }
 
     public void sampleDropper(double position){
-        sd.setPosition(position);
-        sd2.setPosition(position);
+        dropper.setPosition(position);
     }
 
-//   public void specimenGrabIncrement(double position){
-//        double newGrabPos = specimenGrabPosition() + position;
-//       grabTop.setPosition(newGrabPos);
-//       grabBtm.setPosition(newGrabPos);
-//    }
+    public void specimenGrabSetPosition(double newGrabPos){
+        grabTop.setPosition(newGrabPos);
+        grabBtm.setPosition(newGrabPos);
+    }
+
+    public double specimenGrabGetTop(){
+        return grabTop.getPosition();
+    }
+    public double specimenGrabGetBtm(){
+        return grabBtm.getPosition();
+    }
+
 
     //0 = servo position don't match
     //4 = not working and grab servos are not in correct
     //1 = grabber is in scoring position
     //2 = grabber is in the safe position
     //3 = grabber is in the init position
-    public double specimenGrabPosition (int comboPosition) {
+    public int specimenGrabGetPosition() {
         double grabTopPos = grabTop.getPosition();
         double grabBtmPos = grabBtm.getPosition();
         if (grabTopPos != grabBtmPos) {
@@ -90,7 +98,7 @@ public class IntakeSubsystem {
             return 1;
         }else if(grabTopPos == grabSafePos){
             return 2;
-        }else if(grabTopPos == grabIntitPos){
+        }else if(grabTopPos == grabInitPos){
             return 3;
         }
         return 4;
@@ -117,18 +125,16 @@ public class IntakeSubsystem {
             return "null";
     }
 
-    public double sampleD1(){
-        return sd.getPosition();
+    public double sampleDropGetPos(){
+        return dropper.getPosition();
     }
-    public double sampleD2(){
-        return sd2.getPosition();
-    }
+
     public void incrementdropper(boolean forward,double increment){
         if (forward){
-            sd.setPosition(sd.getPosition() + increment);
+            dropper.setPosition(dropper.getPosition() + increment);
 
         }else{
-            sd.setPosition(-increment);
+            dropper.setPosition(-increment);
         }
 
     }

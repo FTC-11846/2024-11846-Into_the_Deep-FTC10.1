@@ -15,12 +15,18 @@ public class Teleop extends OpMode {
     ElevatorSubsystem elevatorSubsystem;
     IntakeSubsystem intakeSubsystem;
 
+    public static final double grabInitPos = 0;
+    public static final double grabSafePos =   0; //0.3
+    public static final double grabActivePos = 1; //0.6
+    public static final double dropperReceivePos = 0.01;
+    public static final double dropperScorePos = 0.6;
+
     @Override
     public void init(){
         mecanumSubsystem = new MecanumSubsystem(hardwareMap);
         elevatorSubsystem = new ElevatorSubsystem(hardwareMap);
         intakeSubsystem = new IntakeSubsystem(hardwareMap);
-
+        intakeSubsystem.specimenGrabSetPosition(grabSafePos);
     }
 
     @Override
@@ -41,15 +47,21 @@ public class Teleop extends OpMode {
         }
 
         if(gamepad2.x){
-            intakeSubsystem.sampleDropper(0.01);
+            intakeSubsystem.sampleDropper(dropperReceivePos);
         }else if(gamepad2.y){
-            intakeSubsystem.sampleDropper(0.89);
+            intakeSubsystem.sampleDropper(dropperScorePos);
         }
 
         // on a check current position and toggle to other position
-        if(gamepad2.a){
-            intakeSubsystem.specimenGrabIncrement(1);
-            if()
+        if(gamepad2.a) {
+            int currentGrabPos = intakeSubsystem.specimenGrabGetPosition();
+
+            //if currently active, set grabber to safe position
+            if (currentGrabPos == 1) {
+                intakeSubsystem.specimenGrabSetPosition(grabSafePos);
+            } else if (currentGrabPos == 2) {
+                intakeSubsystem.specimenGrabSetPosition(grabActivePos);
+            }
         }
         // use function specimenGrabPosition to get current status of grabber position so we know whether
         //to set our position to active or safe
@@ -57,16 +69,14 @@ public class Teleop extends OpMode {
 
 
 
-        if(gamepad2.dpad_down){
-            elevatorSubsystem.openHang();
-        }else {
-            elevatorSubsystem.hang();
-        }
+//        if(gamepad2.dpad_down){
+//            elevatorSubsystem.openHang();
+//        }else {
+//            elevatorSubsystem.hang();
+//        }
 
         if(gamepad2.left_bumper){
-            intakeSubsystem.specimenGrabIncrement(0.1);
         }else if(gamepad2.right_bumper){
-            intakeSubsystem.specimenGrabIncrement(-0.1);
         }
 
         mecanumSubsystem.TeleOperatedDrive(forward, -strafe, turn);
@@ -79,8 +89,10 @@ public class Teleop extends OpMode {
         telemetry.addData("lf",mecanumSubsystem.encoderDrivelf());
         telemetry.addData("rr",mecanumSubsystem.encoderDriverrr());
         telemetry.addData("rf",mecanumSubsystem.encoderDriverrf());
-        telemetry.addData("specimenGrabberPosition",intakeSubsystem.specimenGrabPosition());
+        telemetry.addData("specimenGrabberPosition",intakeSubsystem.specimenGrabGetPosition());
         telemetry.addData("extensionEncoderPosition", intakeSubsystem.extensionEncoderCounts());
+        telemetry.addData("grabTop",intakeSubsystem.specimenGrabGetTop());
+        telemetry.addData("grabBtm",intakeSubsystem.specimenGrabGetBtm());
         telemetry.update();
     }
 
