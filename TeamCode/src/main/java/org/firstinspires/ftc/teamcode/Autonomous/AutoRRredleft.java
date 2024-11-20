@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Subsystems.ElevatorSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.MecanumSubsystem;
@@ -37,9 +38,14 @@ public class AutoRRredleft extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         elevatorSubsystem = new ElevatorSubsystem(hardwareMap);
         intakeSubsystem = new IntakeSubsystem(hardwareMap);
-
+        Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
+        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
+        // make a Claw instance
+       // Claw claw = new Claw(hardwareMap);
+        // make a Lift instance
         waitForStart();
         // sleep(); functions may be needed after non-drivetrain functions
 
     }
+
 }

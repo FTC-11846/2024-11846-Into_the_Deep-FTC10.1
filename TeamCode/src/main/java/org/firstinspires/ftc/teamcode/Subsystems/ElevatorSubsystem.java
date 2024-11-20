@@ -69,7 +69,7 @@ public class ElevatorSubsystem {
         }
 
     }
-    public class liftup implements Action {
+    public class Liftup implements Action {
 
         private boolean initialized = false;
         @Override
@@ -94,6 +94,9 @@ public class ElevatorSubsystem {
             }
 
         }
+    }
+    public Action liftUp() {
+        return new Liftup();
     }
     public class LiftDown implements Action {
 
