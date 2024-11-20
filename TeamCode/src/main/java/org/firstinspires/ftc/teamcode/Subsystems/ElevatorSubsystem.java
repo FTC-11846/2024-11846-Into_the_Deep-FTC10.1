@@ -30,8 +30,12 @@ public class ElevatorSubsystem {
         elevatorL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         elevatorR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        elevatorL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        elevatorR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        These don't work like we need. By design, it only resists external forces, it does NOT
+//        apply power from the battery to hold the current position.  The solution for that is to use
+//        RUN_TO_POSITION, even in TeleOp.  See URL below for more info, including sample code..
+//        https://ftcforum.firstinspires.org/forum/ftc-technology/android-studio/6443-getting-motors-to-hold-their-position
+//        elevatorL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        elevatorR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         elevatorL.setDirection(DcMotor.Direction.REVERSE);
         elevatorR.setDirection(DcMotor.Direction.FORWARD);

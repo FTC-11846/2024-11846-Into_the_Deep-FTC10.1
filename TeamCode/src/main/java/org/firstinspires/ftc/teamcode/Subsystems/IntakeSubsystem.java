@@ -16,7 +16,7 @@ public class IntakeSubsystem {
     //specimen grabber position constants
     public static final double grabInitPos = 0;
     public static final double grabSafePos =   0.3; //0.3
-    public static final double grabActivePos = 0.8; //0.6
+    public static final double grabActivePos = 0.6; //0.6
 
 
     public IntakeSubsystem(HardwareMap hardwareMap){

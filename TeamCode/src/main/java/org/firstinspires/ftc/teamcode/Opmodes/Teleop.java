@@ -17,7 +17,7 @@ public class Teleop extends OpMode {
 
     public static final double grabInitPos = 0;
     public static final double grabSafePos =   0.3; //0.3
-    public static final double grabActivePos = 0.8; //0.6
+    public static final double grabActivePos = 0.6; //0.6
     public static final double dropperReceivePos = 0.01;
     public static final double dropperScorePos = 0.6;
 
@@ -32,16 +32,16 @@ public class Teleop extends OpMode {
     @Override
     public void loop(){
 
-        double forward = gamepad1.left_stick_y;
+        double forward = -gamepad1.left_stick_y;
         double turn = gamepad1.right_stick_x;
         double strafe = -gamepad1.left_stick_x;
         double lift = gamepad2.left_stick_y;
         double extend = -gamepad2.right_stick_y;
 
         if(gamepad2.left_trigger >= 0.1){
-            intakeSubsystem.intake(1);
-        } else if(gamepad2.right_trigger >= 0.1){
             intakeSubsystem.intake(-1);
+        } else if(gamepad2.right_trigger >= 0.1){
+            intakeSubsystem.intake(1);
         } else {
             intakeSubsystem.intake(0);
         }
@@ -93,7 +93,6 @@ public class Teleop extends OpMode {
         telemetry.addData("extensionEncoderPosition", intakeSubsystem.extensionEncoderCounts());
         telemetry.addData("grabTop",intakeSubsystem.specimenGrabGetTop());
         telemetry.addData("grabBtm",intakeSubsystem.specimenGrabGetBtm());
-        telemetry.addData("EleBrake",elevatorSubsystem.EleBrakeR());
         telemetry.update();
     }
 
