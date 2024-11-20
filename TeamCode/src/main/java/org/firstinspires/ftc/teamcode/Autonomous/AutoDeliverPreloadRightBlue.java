@@ -26,7 +26,7 @@ public class AutoDeliverPreloadRightBlue extends LinearOpMode {
         waitForStart();
         // sleep(); functions may be needed after non-drivetrain functions
         encoderDriveToPosition("forward",.3,5000,3);
-        encoderDriveToPosition("slideLeft",.3,500,3);
+        encoderDriveToPosition("slideRight",.3,500,3);
         elevatorSubsystem.encoderElevator(100);
         encoderDriveToPosition("forward",.3,200,3);
         elevatorSubsystem.encoderElevator(-100);

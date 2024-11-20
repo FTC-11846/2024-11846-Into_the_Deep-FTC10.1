@@ -15,8 +15,8 @@ public class IntakeSubsystem {
 
     //specimen grabber position constants
     public static final double grabInitPos = 0;
-    public static final double grabSafePos =   0; //0.3
-    public static final double grabActivePos = 1; //0.6
+    public static final double grabSafePos =   0.3; //0.3
+    public static final double grabActivePos = 0.8; //0.6
 
 
     public IntakeSubsystem(HardwareMap hardwareMap){
@@ -26,7 +26,7 @@ public class IntakeSubsystem {
         grabTop = hardwareMap.get(Servo.class, "grabTop");
         grabBtm = hardwareMap.get(Servo.class, "grabBtm");
    //     cs = hardwareMap.get(RevColorSensorV3.class, "cs");
-        grabTop.setDirection(Servo.Direction.REVERSE);
+        grabTop.setDirection(Servo.Direction.FORWARD);
 
    //  Was this just for bug testing? -->     test.getDirection();
 
@@ -139,3 +139,4 @@ public class IntakeSubsystem {
 
     }
 }
+

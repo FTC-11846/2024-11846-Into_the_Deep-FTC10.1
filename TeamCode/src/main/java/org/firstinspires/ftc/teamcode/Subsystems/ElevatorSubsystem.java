@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -61,7 +65,60 @@ public class ElevatorSubsystem {
         }
 
     }
+    public class liftup implements Action {
 
+        private boolean initialized = false;
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            if (!initialized) {
+                elevatorL.setPower(0.8);
+                elevatorR.setPower(0.8);
+                initialized = true;
+            }
+            double Lpos = elevatorL.getCurrentPosition();
+            double Rpos = elevatorR.getCurrentPosition();
+            packet.put("liftLPos", Lpos);
+            packet.put("liftRPos",Rpos);
+            if (Rpos < .0) {
+                // true causes the action to rerun
+                return true;
+            } else {
+                // false stops action rerun
+                elevatorL.setPower(0);
+                elevatorR.setPower(0);
+                return false;
+            }
+
+        }
+    }
+    public class LiftDown implements Action {
+
+        private boolean initialized = false;
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            if (!initialized) {
+                elevatorL.setPower(-0.8);
+                elevatorR.setPower(-0.8);
+                initialized = true;
+            }
+            double Lpos = elevatorL.getCurrentPosition();
+            double Rpos = elevatorR.getCurrentPosition();
+            packet.put("liftLPos", Lpos);
+            packet.put("liftRPos", Rpos);
+            if (Rpos < 0.0) {
+                // true causes the action to rerun
+                return true;
+            } else {
+                // false stops action rerun
+                elevatorL.setPower(0);
+                elevatorR.setPower(0);
+                return false;
+            }
+        }
+    }
+        public Action liftDown() {
+            return new LiftDown();
+        }
 //    public void hang(){
 //        hangLowBar.setPosition(0.5);
 //        hangHighBar.setPosition(0.56);
@@ -83,4 +140,5 @@ public class ElevatorSubsystem {
         return elevatorR.getCurrentPosition();
     }
 
+    public DcMotor.ZeroPowerBehavior EleBrakeR(){return elevatorR.getZeroPowerBehavior();}
 }
