@@ -12,15 +12,25 @@ public class MeepMeepTesting {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(60, 60, Math.toRadians(270), Math.toRadians(270), 18)
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-24.5, 70.5, Math.toRadians(270)))
-                        .forward(35)
-                        .strafeLeft(15)
-                        .forward(5)
+                .setConstraints(60, 60, Math.toRadians(90), Math.toRadians(90), 18)
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-24.5, 70.5, Math.toRadians(90)))
+                        .forward(-35)
+                        .strafeRight(15)
                         .forward(-5)
-                        .strafeRight(39)
-                        .forward(-20)
-                        //pickup sample
+                        .forward(5)
+
+//                        .strafeLeft(39)
+//                        .forward(20)
+//                        .turn(Math.toRadians(180))
+//                        .strafeRight(10)
+//                        .forward(25)
+//                        .forward(-25)
+//                        .strafeRight(10)
+//                        .forward(25)
+//                        .forward(-25)
+
+                        //deliver pixel to human player with bucket possibly x3
+                        //pickup sample x3
                         //score
                         .build());
 

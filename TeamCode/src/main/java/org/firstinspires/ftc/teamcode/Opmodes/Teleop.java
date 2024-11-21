@@ -32,24 +32,24 @@ public class Teleop extends OpMode {
     @Override
     public void loop(){
 
-        double forward = -gamepad1.left_stick_y;
+        double forward = gamepad1.left_stick_y;
         double turn = gamepad1.right_stick_x;
         double strafe = -gamepad1.left_stick_x;
         double lift = gamepad2.left_stick_y;
         double extend = -gamepad2.right_stick_y;
 
         if(gamepad2.left_trigger >= 0.1){
-            intakeSubsystem.intake(-1);
-        } else if(gamepad2.right_trigger >= 0.1){
             intakeSubsystem.intake(1);
+        } else if(gamepad2.right_trigger >= 0.1){
+            intakeSubsystem.intake(-1);
         } else {
             intakeSubsystem.intake(0);
         }
 
         if(gamepad2.x){
-            intakeSubsystem.sampleDropper(dropperReceivePos);
+            intakeSubsystem.sampleDropper(-dropperReceivePos);
         }else if(gamepad2.y){
-            intakeSubsystem.sampleDropper(dropperScorePos);
+            intakeSubsystem.sampleDropper(-dropperScorePos);
         }
 
         // on a check current position and toggle to other position
@@ -65,11 +65,21 @@ public class Teleop extends OpMode {
         }
         // use function specimenGrabPosition to get current status of grabber position so we know whether
         //to set our position to active or safe
+//        if(gamepad2.b) {
+//            int  currentHangPos = elevatorSubsystem.hangGetPosition();
+//
+//            //if currently active, set grabber to safe position
+//            if (currentHangPos == hangInitPo) {
+//                elevatorSubsystem.openHang();
+//            } else if (currentGrabPos == hangReadyPos) {
+//                elevatorSubsystem.closeHang();
+//            }
+//        }
 
 
 
 
-//        if(gamepad2.dpad_down){
+//        if(gamepad2.b){
 //            elevatorSubsystem.openHang();
 //        }else {
 //            elevatorSubsystem.hang();

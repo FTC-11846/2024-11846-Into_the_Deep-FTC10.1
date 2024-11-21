@@ -16,9 +16,12 @@ public class ElevatorSubsystem {
     DcMotor elevatorL, elevatorR;
     // Not Impl yet! --> Servo hangLowBar, hangHighBar;
 
+
     public ElevatorSubsystem(HardwareMap hardwareMap){
         elevatorL = hardwareMap.get(DcMotor.class,"elevatorL");
         elevatorR = hardwareMap.get(DcMotor.class,"elevatorR");
+   //     public static final double hangInitPos = 0;
+   //     public static final double hangReadyPos = 1;
 
     /*  As of 2024-11-17, Planned servos for hanging, not implemented yet
         hangLowBar = hardwareMap.get(Servo.class,"hangLow");
@@ -138,6 +141,14 @@ public class ElevatorSubsystem {
 //        hangLowBar.setPosition(0.91);
 //        hangHighBar.setPosition(1);
 //    }
+//public int hangGetPosition() {
+//    double hangLowBar = hangLowBar.getPosition();
+//    double hangHighBar = hangHighBar.getPosition();
+//     if (hangLowBar == hangInitPos ) {
+//        return 0;
+//    }else if(hangLowBar == hangReadyPos){
+//        return 1;
+//}
 
     public int ElevatorLCounts(){
         return elevatorL.getCurrentPosition();

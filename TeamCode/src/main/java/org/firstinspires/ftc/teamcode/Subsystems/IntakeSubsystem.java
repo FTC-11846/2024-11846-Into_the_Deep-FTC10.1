@@ -77,7 +77,7 @@ public class IntakeSubsystem {
     }
 
     public double specimenGrabGetTop(){
-        return grabTop.getPosition();
+    return grabTop.getPosition();
     }
     public double specimenGrabGetBtm(){
         return grabBtm.getPosition();
@@ -94,11 +94,11 @@ public class IntakeSubsystem {
         double grabBtmPos = grabBtm.getPosition();
         if (grabTopPos != grabBtmPos) {
             return 0;
-        } else if (grabTopPos == grabActivePos) {
+        } else if (grabBtmPos == grabActivePos) {
             return 1;
-        }else if(grabTopPos == grabSafePos){
+        }else if(grabBtmPos == grabSafePos){
             return 2;
-        }else if(grabTopPos == grabInitPos){
+        }else if(grabBtmPos == grabInitPos){
             return 3;
         }
         return 4;

@@ -38,8 +38,13 @@ public class AutoRRredleft extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         elevatorSubsystem = new ElevatorSubsystem(hardwareMap);
         intakeSubsystem = new IntakeSubsystem(hardwareMap);
-        Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
+        Pose2d initialPose = new Pose2d(-24.5, 70.5, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
+        Action traj1 = drive.actionBuilder(initialPose)
+               .lineToY(35.5)
+                .strafeTo(new Vector2d(-9.5,35.5))
+                .lineToY(30.5)
+                .build();
         // make a Claw instance
        // Claw claw = new Claw(hardwareMap);
         // make a Lift instance
