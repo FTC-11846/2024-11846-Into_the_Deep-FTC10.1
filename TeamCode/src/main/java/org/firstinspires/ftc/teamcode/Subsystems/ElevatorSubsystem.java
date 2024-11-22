@@ -30,9 +30,6 @@ public class ElevatorSubsystem {
         hangHighBar.setDirection(Servo.Direction.REVERSE);
     */
 
-        elevatorL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        elevatorR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
 //        These don't work like we need. By design, it only resists external forces, it does NOT
 //        apply power from the battery to hold the current position.  The solution for that is to use
 //        RUN_TO_POSITION, even in TeleOp.  See URL below for more info, including sample code..
@@ -45,16 +42,24 @@ public class ElevatorSubsystem {
 
         elevatorL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevatorR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-
+        elevatorL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        elevatorR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        elevatorL.setTargetPosition(0);
+//        elevatorR.setTargetPosition(0);
+        elevatorL.setPower(.7);
+        elevatorR.setPower(.7);
     }
 
     public void elevatorLift(double power){
-        elevatorL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        elevatorR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        elevatorL.setPower(power);
-        elevatorR.setPower(power);
+
+        if(power > 0.03) {
+            elevatorL.setTargetPosition(elevatorL.getCurrentPosition() + 200);
+            elevatorR.setTargetPosition(elevatorR.getCurrentPosition() + 200);
+        } else if(power < -0.03){
+            elevatorL.setTargetPosition(elevatorL.getCurrentPosition() - 200);
+            elevatorR.setTargetPosition(elevatorR.getCurrentPosition() - 200);
     }
+        }
 
     public void encoderElevator(double counts){
         elevatorL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -152,6 +157,18 @@ public class ElevatorSubsystem {
 
     public int ElevatorLCounts(){
         return elevatorL.getCurrentPosition();
+    }
+    public int ElevatorLTgt(){
+        return elevatorL.getTargetPosition();
+    }
+    public double ElevatorLGetPwr(){
+        return elevatorL.getPower();
+    }
+    public int ElevatorRTgt(){
+        return elevatorR.getTargetPosition();
+    }
+    public double ElevatorRGetPwr(){
+        return elevatorR.getPower();
     }
 
     public int ElevatorRCounts(){

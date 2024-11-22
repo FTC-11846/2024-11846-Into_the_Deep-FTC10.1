@@ -18,8 +18,8 @@ public class Teleop extends OpMode {
     public static final double grabInitPos = 0;
     public static final double grabSafePos =   0.3; //0.3
     public static final double grabActivePos = 0.6; //0.6
-    public static final double dropperReceivePos = 0;
-    public static final double dropperScorePos = 1;
+    public static final double dropperReceivePos = 0.01;
+    public static final double dropperScorePos = 0.6;
 
     @Override
     public void init(){
@@ -47,9 +47,9 @@ public class Teleop extends OpMode {
         }
 
         if(gamepad2.x){
-            intakeSubsystem.sampleDropper(dropperReceivePos);
+            intakeSubsystem.sampleDropper(-dropperReceivePos);
         }else if(gamepad2.y){
-            intakeSubsystem.sampleDropper(dropperScorePos);
+            intakeSubsystem.sampleDropper(-dropperScorePos);
         }
 
         // on a check current position and toggle to other position
@@ -57,10 +57,10 @@ public class Teleop extends OpMode {
             int currentGrabPos = intakeSubsystem.specimenGrabGetPosition();
 
             //if currently active, set grabber to safe position
-            if (currentGrabPos == 2) {
-                intakeSubsystem.specimenGrabSetPosition(grabActivePos);
-            } else if (currentGrabPos == 1) {
+            if (currentGrabPos == 1) {
                 intakeSubsystem.specimenGrabSetPosition(grabSafePos);
+            } else if (currentGrabPos == 2) {
+                intakeSubsystem.specimenGrabSetPosition(grabActivePos);
             }
         }
         // use function specimenGrabPosition to get current status of grabber position so we know whether
@@ -101,7 +101,7 @@ public class Teleop extends OpMode {
         telemetry.addData("rf",mecanumSubsystem.encoderDriverrf());
         telemetry.addData("specimenGrabberPosition",intakeSubsystem.specimenGrabGetPosition());
         telemetry.addData("extensionEncoderPosition", intakeSubsystem.extensionEncoderCounts());
-      //  telemetry.addData("grabTop",intakeSubsystem.specimenGrabGetTop());
+        telemetry.addData("grabTop",intakeSubsystem.specimenGrabGetTop());
         telemetry.addData("grabBtm",intakeSubsystem.specimenGrabGetBtm());
         telemetry.update();
     }
