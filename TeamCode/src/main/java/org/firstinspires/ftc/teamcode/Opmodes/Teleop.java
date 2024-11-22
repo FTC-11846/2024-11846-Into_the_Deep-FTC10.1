@@ -79,15 +79,15 @@ public class Teleop extends OpMode {
 
 
 
-//        if(gamepad2.b){
-//            elevatorSubsystem.openHang();
-//        }else {
-//            elevatorSubsystem.hang();
-//        }
-
-        if(gamepad2.left_bumper){
-        }else if(gamepad2.right_bumper){
+        if(gamepad2.b){
+            elevatorSubsystem.openHang();
+        }else if(gamepad2.dpad_down){
+            elevatorSubsystem.hang();
         }
+
+//        if(gamepad2.left_bumper){
+//        }else if(gamepad2.right_bumper){
+//        }
 
         mecanumSubsystem.TeleOperatedDrive(forward, -strafe, turn);
         elevatorSubsystem.elevatorLift(lift);

@@ -14,6 +14,7 @@ public class ElevatorSubsystem {
     // Left & Right is from the view of someone in front of the robot, looking at it.
     // In the future, switch to vehicle passenger perspective to match path/driving toolkits.
     DcMotor elevatorL, elevatorR;
+    Servo  hangHighBar;
     // Not Impl yet! --> Servo hangLowBar, hangHighBar;
 
 
@@ -23,12 +24,12 @@ public class ElevatorSubsystem {
    //     public static final double hangInitPos = 0;
    //     public static final double hangReadyPos = 1;
 
-    /*  As of 2024-11-17, Planned servos for hanging, not implemented yet
-        hangLowBar = hardwareMap.get(Servo.class,"hangLow");
+    // As of 2024-11-17, Planned servos for hanging, not implemented yet
+    //    hangLowBar = hardwareMap.get(Servo.class,"hangLow");
         hangHighBar = hardwareMap.get(Servo.class,"hangHigh");
 
         hangHighBar.setDirection(Servo.Direction.REVERSE);
-    */
+
 
 //        These don't work like we need. By design, it only resists external forces, it does NOT
 //        apply power from the battery to hold the current position.  The solution for that is to use
@@ -134,18 +135,16 @@ public class ElevatorSubsystem {
         public Action liftDown() {
             return new LiftDown();
         }
-//    public void hang(){
-//        hangLowBar.setPosition(0.5);
-//        hangHighBar.setPosition(0.56);
-//
-//        if(hangLowBar.getPosition() == 0.5 && hangHighBar.getPosition() == 0.56){
-//
-//        }
-//    }
-//    public void openHang() {
-//        hangLowBar.setPosition(0.91);
-//        hangHighBar.setPosition(1);
-//    }
+    public void hang() {
+        //   hangLowBar.setPosition(0.5);
+        hangHighBar.setPosition(0);
+
+    }
+
+    public void openHang() {
+     //   hangLowBar.setPosition(0.91);
+        hangHighBar.setPosition(.65);
+    }
 //public int hangGetPosition() {
 //    double hangLowBar = hangLowBar.getPosition();
 //    double hangHighBar = hangHighBar.getPosition();
