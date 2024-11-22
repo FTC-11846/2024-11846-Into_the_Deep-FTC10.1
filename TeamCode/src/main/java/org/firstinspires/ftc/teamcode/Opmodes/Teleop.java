@@ -27,6 +27,7 @@ public class Teleop extends OpMode {
         elevatorSubsystem = new ElevatorSubsystem(hardwareMap);
         intakeSubsystem = new IntakeSubsystem(hardwareMap);
         intakeSubsystem.specimenGrabSetPosition(grabSafePos);
+        elevatorSubsystem.openHang();
     }
 
     @Override

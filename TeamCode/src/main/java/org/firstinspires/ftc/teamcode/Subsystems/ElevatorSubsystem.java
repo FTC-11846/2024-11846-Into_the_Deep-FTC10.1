@@ -143,7 +143,7 @@ public class ElevatorSubsystem {
 
     public void openHang() {
      //   hangLowBar.setPosition(0.91);
-        hangHighBar.setPosition(.65);
+        hangHighBar.setPosition(.7);
     }
 //public int hangGetPosition() {
 //    double hangLowBar = hangLowBar.getPosition();
