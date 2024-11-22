@@ -42,10 +42,10 @@ public class ElevatorSubsystem {
 
         elevatorL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elevatorR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        elevatorL.setTargetPosition(0);
+        elevatorR.setTargetPosition(0);
         elevatorL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         elevatorR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        elevatorL.setTargetPosition(0);
-//        elevatorR.setTargetPosition(0);
         elevatorL.setPower(.7);
         elevatorR.setPower(.7);
     }

@@ -101,7 +101,6 @@ public class Teleop extends OpMode {
         telemetry.addData("rf",mecanumSubsystem.encoderDriverrf());
         telemetry.addData("specimenGrabberPosition",intakeSubsystem.specimenGrabGetPosition());
         telemetry.addData("extensionEncoderPosition", intakeSubsystem.extensionEncoderCounts());
-        telemetry.addData("grabTop",intakeSubsystem.specimenGrabGetTop());
         telemetry.addData("grabBtm",intakeSubsystem.specimenGrabGetBtm());
         telemetry.update();
     }
