@@ -90,18 +90,22 @@ public class Teleop extends OpMode {
         }
 
         mecanumSubsystem.TeleOperatedDrive(forward, -strafe, turn);
-        elevatorSubsystem.elevatorLift(lift);
+        elevatorSubsystem.elevatorLift  (lift);
+
         intakeSubsystem.extend(extend);
 
         telemetry.addData("ElevatorLCounts", elevatorSubsystem.ElevatorLCounts());
         telemetry.addData("ElevatorRCounts", elevatorSubsystem.ElevatorRCounts());
+        telemetry.addData("ElevatorLPwr", elevatorSubsystem.ElevatorLGetPwr());
+        telemetry.addData("ElevatorRPwr", elevatorSubsystem.ElevatorRGetPwr());
+        telemetry.addData("ElevatorLTarget", elevatorSubsystem.ElevatorLTgt());
+        telemetry.addData("ElevatorRTarget", elevatorSubsystem.ElevatorRTgt());
         telemetry.addData("lr",mecanumSubsystem.encoderDrivelr());
         telemetry.addData("lf",mecanumSubsystem.encoderDrivelf());
         telemetry.addData("rr",mecanumSubsystem.encoderDriverrr());
         telemetry.addData("rf",mecanumSubsystem.encoderDriverrf());
         telemetry.addData("specimenGrabberPosition",intakeSubsystem.specimenGrabGetPosition());
         telemetry.addData("extensionEncoderPosition", intakeSubsystem.extensionEncoderCounts());
-        telemetry.addData("grabTop",intakeSubsystem.specimenGrabGetTop());
         telemetry.addData("grabBtm",intakeSubsystem.specimenGrabGetBtm());
         telemetry.update();
     }
