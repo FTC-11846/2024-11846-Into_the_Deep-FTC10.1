@@ -9,7 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class IntakeSubsystem {
 
     DcMotor inExtendMotor, intakeMotor;
-    Servo dropper, grabTop, grabBtm;
+    Servo dropper;
+    Servo grabBtm;
     RevColorSensorV3 cs;
     CRServo test;
 
@@ -23,10 +24,10 @@ public class IntakeSubsystem {
         inExtendMotor = hardwareMap.get(DcMotor.class, "inExtendMotor");
         intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
         dropper = hardwareMap.get(Servo.class, "dropper");
-        grabTop = hardwareMap.get(Servo.class, "grabTop");
+//        grabTop = hardwareMap.get(Servo.class, "grabTop");
         grabBtm = hardwareMap.get(Servo.class, "grabBtm");
    //     cs = hardwareMap.get(RevColorSensorV3.class, "cs");
-        grabTop.setDirection(Servo.Direction.FORWARD);
+//        grabTop.setDirection(Servo.Direction.FORWARD);
 
    //  Was this just for bug testing? -->     test.getDirection();
 
@@ -72,13 +73,18 @@ public class IntakeSubsystem {
     }
 
     public void specimenGrabSetPosition(double newGrabPos){
-        grabTop.setPosition(newGrabPos);
+//        grabTop.setPosition(newGrabPos);
         grabBtm.setPosition(newGrabPos);
+        try {
+            Thread.sleep(200);
+        } catch(InterruptedException e) {
+        }
+
     }
 
-    public double specimenGrabGetTop(){
-    return grabTop.getPosition();
-    }
+   // public double specimenGrabGetTop(){
+ //   return grabTop.getPosition();
+    // }
     public double specimenGrabGetBtm(){
         return grabBtm.getPosition();
     }
@@ -90,11 +96,8 @@ public class IntakeSubsystem {
     //2 = grabber is in the safe position
     //3 = grabber is in the init position
     public int specimenGrabGetPosition() {
-        double grabTopPos = grabTop.getPosition();
         double grabBtmPos = grabBtm.getPosition();
-        if (grabTopPos != grabBtmPos) {
-            return 0;
-        } else if (grabBtmPos == grabActivePos) {
+         if (grabBtmPos > 0.5) {
             return 1;
         }else if(grabBtmPos == grabSafePos){
             return 2;
