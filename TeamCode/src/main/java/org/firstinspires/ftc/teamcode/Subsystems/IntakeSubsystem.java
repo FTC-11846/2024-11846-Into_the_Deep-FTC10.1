@@ -3,16 +3,17 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class IntakeSubsystem {
 
-    DcMotor inExtendMotor, intakeMotor;
+    DcMotor inExtendMotor;
     Servo dropper;
     Servo grabBtm;
     RevColorSensorV3 cs;
-    CRServo test;
+    CRServo intakeServoL, intakeServoR;
 
     //specimen grabber position constants
     public static final double grabInitPos = 0;
@@ -22,7 +23,9 @@ public class IntakeSubsystem {
 
     public IntakeSubsystem(HardwareMap hardwareMap){
         inExtendMotor = hardwareMap.get(DcMotor.class, "inExtendMotor");
-        intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
+    //    intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
+        intakeServoL = hardwareMap.get(CRServo.class, "inServL");
+        intakeServoR = hardwareMap.get(CRServo.class, "inServR");
         dropper = hardwareMap.get(Servo.class, "dropper");
 //        grabTop = hardwareMap.get(Servo.class, "grabTop");
         grabBtm = hardwareMap.get(Servo.class, "grabBtm");
@@ -32,16 +35,16 @@ public class IntakeSubsystem {
    //  Was this just for bug testing? -->     test.getDirection();
 
         inExtendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    //    intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         inExtendMotor.setDirection(DcMotor.Direction.FORWARD);
-        intakeMotor.setDirection(DcMotor.Direction.FORWARD);
+        intakeServoL.setDirection(CRServo.Direction.REVERSE);
 
         inExtendMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    //    intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         inExtendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    //    intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void extend(double power){
@@ -65,7 +68,9 @@ public class IntakeSubsystem {
     }
 
     public void intake(double power) {
-        intakeMotor.setPower(power);
+
+        intakeServoL.setPower(power);
+        intakeServoR.setPower(power);
     }
 
     public void sampleDropper(double position){

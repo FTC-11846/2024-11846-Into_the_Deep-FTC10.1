@@ -40,7 +40,7 @@ public class AutoRRredleft extends LinearOpMode {
         intakeSubsystem = new IntakeSubsystem(hardwareMap);
         Pose2d initialPose = new Pose2d(-24.5, 70.5, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
-        Action traj1 = drive.actionBuilder(initialPose)
+        Action trhjyuHJaj1 = drive.actionBuilder(initialPose)
                .lineToY(35.5)
                 .strafeTo(new Vector2d(-9.5,35.5))
                 .lineToY(30.5)
